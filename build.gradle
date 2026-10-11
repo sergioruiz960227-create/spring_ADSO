@@ -1,0 +1,47 @@
+// Plugins del proyecto
+plugins {
+	id 'java'                                            // Compila código Java
+	id 'org.springframework.boot' version '4.1.1'        // Spring Boot (permite ejecutar con bootRun)
+	id 'io.spring.dependency-management' version '1.1.7' // Administra las versiones de las dependencias
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+// Versión de Java con la que se compila el proyecto
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+// Lugar de donde se descargan las librerías
+repositories {
+	mavenCentral()
+}
+
+// Librerías que usa el proyecto
+dependencies {
+	// Spring Data JPA + Hibernate: acceso a la base de datos sin escribir SQL
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// Servidor web (Tomcat integrado) y controladores REST
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	// Lombok: genera getters, setters y constructores con anotaciones
+	compileOnly 'org.projectlombok:lombok'
+	// DevTools: reinicia la aplicación automáticamente al cambiar el código (solo en desarrollo)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// Driver de MySQL para conectarse a la base de datos
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	// Librerías para las pruebas automáticas
+	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	testCompileOnly 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+// Las pruebas se ejecutan con JUnit
+tasks.named('test') {
+	useJUnitPlatform()
+}
